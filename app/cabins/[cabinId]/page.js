@@ -1,7 +1,7 @@
+import { Suspense } from "react";
 import { getCabin, getCabins } from "@/app/_lib/data-service";
 
 import Reservation from "@/app/_components/Reservation";
-import { Suspense } from "react";
 import Spinner from "@/app/_components/Spinner";
 import Cabin from "@/app/_components/Cabin";
 
