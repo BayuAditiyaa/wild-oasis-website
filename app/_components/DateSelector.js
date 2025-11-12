@@ -37,7 +37,6 @@ function DateSelector({ settings, bookedDates, cabin }) {
       <DayPicker
         onSelect={setRange}
         selected={displayRange}
-        className="pt-12 place-self-center"
         mode="range"
         min={minBookingLength + 1}
         max={maxBookingLength}
@@ -46,6 +45,10 @@ function DateSelector({ settings, bookedDates, cabin }) {
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
+                classNames={{
+          months: "flex flex-col sm:flex-row gap-8 sm:gap-4",
+          month: "space-y-4",
+        }}
         disabled={(curDate) =>
           isPast(curDate) ||
           bookedDates.some((date) => isSameDay(date, curDate))
@@ -53,28 +56,33 @@ function DateSelector({ settings, bookedDates, cabin }) {
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
-        <div className="flex items-baseline gap-6">
-          <p className="flex gap-2 items-baseline">
+        <div className="flex items-baseline gap-3 sm:gap-6 flex-wrap">
+          <p className="flex gap-2 items-baseline text-base sm:text-lg">
             {discount > 0 ? (
               <>
-                <span className="text-2xl">${regularPrice - discount}</span>
+                <span className="text-xl sm:text-2xl">${regularPrice - discount}</span>
                 <span className="line-through font-semibold text-primary-700">
                   ${regularPrice}
                 </span>
               </>
             ) : (
-              <span className="text-2xl">${regularPrice}</span>
+              <span className="text-xl sm:text-2xl">${regularPrice}</span>
             )}
-            <span className="">/night</span>
+            <span className="text-sm sm:text-base">/night</span>
           </p>
           {numNights ? (
             <>
-              <p className="bg-accent-600 px-3 py-2 text-2xl">
+              <p className="bg-accent-600 px-3 py-2 text-base sm:text-2xl">
                 <span>&times;</span> <span>{numNights}</span>
               </p>
-              <p>
-                <span className="text-lg font-bold uppercase">Total</span>{" "}
-                <span className="text-2xl font-semibold">${cabinPrice}</span>
+              {/* DIPERBAIKI: Stacking di mobile, inline di desktop */}
+              <p className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
+                <span className="text-sm sm:text-lg font-bold uppercase">
+                  Total
+                </span>{" "}
+                <span className="text-lg sm:text-2xl font-semibold">
+                  ${cabinPrice}
+                </span>
               </p>
             </>
           ) : null}
