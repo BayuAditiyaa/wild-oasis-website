@@ -13,9 +13,11 @@ export default async function Page({ params }) {
         Edit Reservation #{bookingId}
       </h2>
 
-      <form
+  <form
         action={updateReservation}
-        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+        // DIPERBAIKI: Padding horizontal dibuat responsif
+        // px-6 untuk mobile, sm:px-12 untuk layar lebih besar
+        className="bg-primary-900 py-8 px-6 sm:px-12 text-lg flex gap-6 flex-col"
       >
         <input type="hidden" value={bookingId} name="bookingId" />
         <div className="space-y-2">
