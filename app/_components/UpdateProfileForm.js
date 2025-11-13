@@ -9,7 +9,7 @@ export default function UpdateProfileForm({ guest, children }) {
   return (
     <form
       action={updateProfile}
-      className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      className="bg-primary-900 py-8 px-2 sm:px-12 text-lg flex gap-6 flex-col"
     >
       <div className="space-y-2">
         <label>Full name</label>
