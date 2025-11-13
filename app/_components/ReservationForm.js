@@ -14,12 +14,15 @@ export function setLocalHoursToUTCOffset(date) {
 }
 
 function isAlreadyBooked(range, datesArr) {
-  return (
-    range.from &&
-    range.to &&
-    datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
-    )
+  // 1. Pastikan kita memiliki semua data yang diperlukan
+  // Jika 'range' tidak lengkap, atau 'datesArr' tidak ada, kembalikan false
+  if (!range?.from || !range?.to || !Array.isArray(datesArr)) {
+    return false;
+  }
+
+  // 2. Jika semua data ada, jalankan pengecekan
+  return datesArr.some((date) =>
+    isWithinInterval(date, { start: range.from, end: range.to })
   );
 }
 
@@ -109,7 +112,7 @@ function ReservationForm({ cabin, user, bookedDates }) {
           {/* <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
             Reserve now
           </button> */}
-          {displayRange.to && displayRange.from && (
+          {displayRange?.to && displayRange?.from && (
             <SubmitButton>Reserve now</SubmitButton>
           )}
         </div>

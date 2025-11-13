@@ -11,12 +11,15 @@ import "react-day-picker/dist/style.css";
 import { useReservation } from "@/app/_components/ReservationContext";
 
 function isAlreadyBooked(range, datesArr) {
-  return (
-    range?.from &&
-    range?.to &&
-    datesArr.some((date) =>
-      isWithinInterval(date, { start: range?.from, end: range?.to })
-    )
+  // 1. Pastikan kita memiliki semua data yang diperlukan
+  // Jika 'range' tidak lengkap, atau 'datesArr' tidak ada, kembalikan false
+  if (!range?.from || !range?.to || !Array.isArray(datesArr)) {
+    return false;
+  }
+
+  // 2. Jika semua data ada, jalankan pengecekan
+  return datesArr.some((date) =>
+    isWithinInterval(date, { start: range.from, end: range.to })
   );
 }
 
