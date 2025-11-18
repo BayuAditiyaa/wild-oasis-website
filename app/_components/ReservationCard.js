@@ -3,6 +3,7 @@ import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 import DeleteReservation from "@/app/_components/DeleteReservation";
 import Image from "next/image";
 import Link from "next/link";
+import PaymentButton from "./PaymentButton";
 
 export const formatDistanceFromNow = (dateStr) =>
   formatDistance(parseISO(dateStr), new Date(), {
@@ -23,6 +24,8 @@ function ReservationCard({ booking }) {
     cabins: { name, image },
   } = booking;
 
+  console.log(isPast(startDate) + "bebas");
+  
   return (
         <div className="flex flex-col md:flex-row border border-primary-800 rounded-lg overflow-hidden">
       
@@ -97,11 +100,20 @@ function ReservationCard({ booking }) {
               bookingId={id} 
               className="group flex flex-grow items-center justify-center md:justify-start gap-2 uppercase text-xs font-bold text-primary-300 px-3 py-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
             />
+              <div className="mt-2 px-3">
+               <PaymentButton booking={booking} />
+            </div>
           </>
         ) : (
           // Sediakan placeholder jika tidak ada aksi, agar layout desktop tetap konsisten
           <div className="hidden md:flex flex-grow"></div>
         )}
+        {/* Add Payment Button Here */}
+         {!isPast(new Date(startDate)) && status === 'unconfirmed' && (
+            <div className="mt-2 px-3">
+               <PaymentButton booking={booking} />
+            </div>
+         )}
       </div>
     </div>
   );

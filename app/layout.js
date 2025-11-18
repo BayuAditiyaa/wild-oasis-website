@@ -3,6 +3,7 @@ import Header from "@/app/_components/Header";
 
 import { Josefin_Sans } from "next/font/google";
 import { ReservationProvider } from "@/app/_components/ReservationContext";
+import Script from "next/script";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -31,6 +32,11 @@ export default function RootLayout({ children }) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
+        <Script
+          src="https://app.sandbox.midtrans.com/snap/snap.js"
+          data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
